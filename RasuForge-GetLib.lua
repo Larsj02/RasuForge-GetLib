@@ -178,9 +178,9 @@ local function convertLibstub()
     function libstubReplaced:GetLibrary(name, silent)
         local library, version = GetLib:GetLibrary(name, "*", silent)
         if not (library and version) then return end
-        local lsVersion = version:gsub("%p", "")
-        if tonumber(lsVersion) then
-            return library, tonumber(lsVersion)
+        local major = version:match("^(%d+)%.")
+        if tonumber(major) then
+            return library, tonumber(major)
         end
     end
 
