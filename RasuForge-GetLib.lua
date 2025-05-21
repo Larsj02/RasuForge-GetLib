@@ -157,12 +157,13 @@ setmetatable(GetLib, { __call = GetLib.GetLibrary })
 
 local function convertLibstub()
     if _G["LibStub"] then
+        if LibStub.converted then return end
         for name, library in LibStub:IterateLibraries() do
             GetLib:RegisterLibrary(name, ("%d.0.0"):format(LibStub.minors[name]), library)
         end
     end
 
-    local libstubReplaced = { minor = 9 }
+    local libstubReplaced = { minor = 9, converted = true }
     _G["LibStub"] = libstubReplaced
 
     ---@param name any
